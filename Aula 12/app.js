@@ -14,7 +14,6 @@ function limparErro(inputId, erroId) {
     document.querySelector(erroId).classList.add('oculto');
 }
 
-
 const inputNome = document.querySelector('#inputNome');
 inputNome.addEventListener('focus', function() {
     limparErro('#inputNome', '#erroNome');
@@ -40,19 +39,16 @@ inputEmail.addEventListener('blur', function() {
     }
 });
 
-// NOTA
 const inputNota = document.querySelector('#inputNota');
 inputNota.addEventListener('focus', function() {
     limparErro('#inputNota', '#erroNota');
 });
 inputNota.addEventListener('blur', function() {
     const v = inputNota.value.trim();
-    
     if (v === '' || isNaN(v)) {
         mostrarErro('#inputNota', '#erroNota', 'Digite um número');
         return;
     }
-    
     const n = parseFloat(v);
     if (n < 1 || n > 10) {
         mostrarErro('#inputNota', '#erroNota', 'Nota entre 1 e 10');
@@ -68,10 +64,9 @@ const LIMITE = 200;
 inputComentario.addEventListener('input', function() {
     const qtd = inputComentario.value.length;
     contadorChars.textContent = qtd + ' / ' + LIMITE;
-    
     if (qtd > LIMITE) {
         contadorChars.classList.add('limite');
-        mostrarErro('#inputComentario', '#erroComentario', 'Limite de ' + LIMITE + ' caracteres atingido');
+        mostrarErro('#inputComentario', '#erroComentario', 'Limite atingido');
     } else if (qtd < 10) {
         contadorChars.classList.remove('limite');
         mostrarErro('#inputComentario', '#erroComentario', 'Mínimo 10 caracteres');
@@ -80,7 +75,6 @@ inputComentario.addEventListener('input', function() {
         limparErro('#inputComentario', '#erroComentario');
     }
 });
-
 
 function validarNome() {
     if (inputNome.value.trim() === '') {
@@ -114,16 +108,11 @@ function validarNota() {
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const ok = validarNome() & validarEmail() & validarNota();
-    
     if (ok) {
         alert('Avaliação da hamburgueria enviada! Obrigado.');
         form.reset();
-        
-        
         contadorChars.textContent = '0 / ' + LIMITE;
         contadorChars.classList.remove('limite');
     }
 });
-
